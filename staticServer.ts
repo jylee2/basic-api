@@ -19,15 +19,15 @@ import {
   Status
 } from 'https://deno.land/x/oak@v6.2.0/mod.ts'
 import { applyGraphQL, gql, GQLError } from 'https://deno.land/x/oak_graphql/mod.ts'
-// import { Bson, MongoClient } from 'https://deno.land/x/mongo@v0.22.0/mod.ts'
+import { Bson, MongoClient } from 'https://deno.land/x/mongo@v0.22.0/mod.ts'
 // import { MongoClient } from 'https://deno.land/x/mongo@v0.7.0/mod.ts'
 
 const app = new Application()
 
 // =======================================================
 
-// const client = new MongoClient()
-// await client.connect('mongodb://localhost:27017')
+const client = new MongoClient()
+await client.connect('mongodb://localhost:27017')
 // await client.connect({
 //   db: 'recordOne',
 //   tls: true,
@@ -46,21 +46,21 @@ const app = new Application()
 // })
 // client.connectWithUri('mongodb://localhost:27017')
 
-// const db = client.database('recordOne')
-// const dogs = db.collection('recordOneModel')
+const db = client.database('test')
+const dogs = db.collection('dogs')
 
-const dogs = [
-  {
-    name: 'shiba',
-    isGoodBoi: true,
-    id: 1
-  },
-  {
-    name: 'golden',
-    isGoodBoi: true,
-    id: 2
-  }
-]
+// const dogs = [
+//   {
+//     name: 'shiba',
+//     isGoodBoi: true,
+//     id: 1
+//   },
+//   {
+//     name: 'golden',
+//     isGoodBoi: true,
+//     id: 2
+//   }
+// ]
 
 // =======================================================
 
@@ -153,59 +153,59 @@ app.use(async (context, next) => {
 // ========== Oak-GraphQL ==========
 // @ts-ignore
 
-// const typeDefs = gql`
-//   type Dog {
-//     name: String!
-//     isGoodBoi: Boolean!
-//     id: ID!
-//   }
-
-//   type DogInput {
-//     name: String!
-//     isGoodBoi: Boolean!
-//   }
-
-//   type Query {
-//     # foo: String!
-//     dog: [Dog!]!
-//   }
-
-//   type Mutation {
-//     addDog(input: DogInput): Dog!
-//   }
-// `
-
-// const resolvers = {
-//   Query: {
-//     foo: () => 'bar',
-//     dog: async () => {
-//       const doggos = await dogs.find()
-//       return doggos.map((doggo: any) => {
-//         const { _id: { '\$oid': id }} = doggo
-//         doggo.id = id
-//         return doggo
-//       })
-//     }
-//   },
-//   Mutation: {
-//     addDog: async (_: any, { input: {name, isGoodBoi} }: any, context: any, info: any) => {
-//       const { '\$oid': id } = await dogs.insertOne({ name, isGoodBoi })
-//       return { name, isGoodBoi, id }
-//     }
-//   }
-// }
-
 const typeDefs = gql`
+  type Dog {
+    name: String!
+    isGoodBoi: Boolean!
+    id: ID!
+  }
+
+  input DogInput {
+    name: String!
+    isGoodBoi: Boolean!
+  }
+
   type Query {
     foo: String!
+    dog: [Dog!]!
+  }
+
+  type Mutation {
+    addDog(input: DogInput): Dog!
   }
 `
 
 const resolvers = {
   Query: {
-    foo: () => 'bar'
+    foo: () => 'bar',
+    dog: async () => {
+      const doggos = await dogs.find()
+      return doggos.map((doggo: any) => {
+        const { _id: { '\$oid': id }} = doggo
+        doggo.id = id
+        return doggo
+      })
+    }
+  },
+  Mutation: {
+    addDog: async (_: any, { input: {name, isGoodBoi} }: any, context: any, info: any) => {
+      const { '\$oid': id } = await dogs.insertOne({ name, isGoodBoi })
+      return { name, isGoodBoi, id }
+    }
   }
 }
+
+// const typeDefs = gql`
+//   type Query {
+//     foo: String!
+//   }
+// `
+
+// const resolvers = {
+//   Query: {
+//     foo: () => 'bar'
+//   }
+// }
 
 const GraphQLService = await applyGraphQL<Router>({
   Router,
