@@ -18,7 +18,7 @@ import {
   RouterContext,
   Status
 } from 'https://deno.land/x/oak@v6.2.0/mod.ts'
-import { applyGraphQL, gql, GQLError } from 'https://deno.land/x/oak_graphql/mod.ts'
+import { applyGraphQL, gql, GQLError } from 'https://deno.land/x/oak_graphql@0.6.2/mod.ts'
 import { Bson, MongoClient } from 'https://deno.land/x/mongo@v0.22.0/mod.ts'
 // import { MongoClient } from 'https://deno.land/x/mongo@v0.7.0/mod.ts'
 
