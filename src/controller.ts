@@ -1,19 +1,53 @@
-import { RouterContext } from 'https://deno.land/x/oak@v6.4.0/mod.ts'
-import * as bcrypt from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts'
+// import { RouterContext } from 'https://deno.land/x/oak@v6.4.0/mod.ts'
+// import * as bcrypt from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts'
+// import { create } from 'https://deno.land/x/djwt@v2.2/mod.ts'
 
-import { db } from './database/connection.ts'
-import UserSchema from './schemas/user.ts'
+// import { db } from './database/connection.ts'
+// import UserSchema from './schemas/user.ts'
 
-const users = db.collection<UserSchema>("users");
+// const users = db.collection<UserSchema>("users");
 
-export const Register = async ({request, response}: RouterContext) => {
-  const { name, email, password } = await request.body().value
+// // Doesn't work
 
-  const _id = await users.insertOne({
-    name,
-    email,
-    password: await bcrypt.hash(password)
-  })
+// export const Register = async ({request, response}: RouterContext) => {
+//   const { name, email, password } = await request.body().value
 
-  response.body = await users.findOne({ _id: _id })
-}
+//   const _id = await users.insertOne({
+//     name,
+//     email,
+//     password: await bcrypt.hash(password)
+//   })
+
+//   response.body = await users.findOne({ _id: _id })
+// }
+
+// export const Login = async ({request, response, cookies}: RouterContext) => {
+//   const { email, password } = await request.body().value
+
+//   const user = await users.findOne({ email: email })
+
+//   if (!user) {
+//     response.body = 404
+//     response.body = {
+//       message: 'User not found.'
+//     }
+//     return 
+//   }
+
+//   if (!await bcrypt.compare(password, user.password)) {
+//     response.body = 401
+//     response.body = {
+//       message: 'Incorrect password.'
+//     }
+//     return 
+//   }
+
+//   const jwt = await create({ alg: "HS512", typ: "JWT" }, { _id: user._id }, "secret")
+
+//   cookies.set('jwt', jwt, {httpOnly: true})
+
+//   response.body = {
+//     message: 'success'
+//   }
+
+// }
