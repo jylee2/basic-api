@@ -50,7 +50,7 @@ router
       })
     
       const newUser = await users.findOne({ _id: _id })
-      // delete newUser.password
+      // delete newUser?.password
 
       context.response.body = newUser
     } catch (error) {
