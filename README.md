@@ -8,3 +8,8 @@ deno install -qAf --unstable https://deno.land/x/denon@2.4.7/denon.ts
 cd basic-api
 denon --init
 denon start
+
+git status
+git add .
+git commit -m "feat: add login, auth and logout"
+git push origin main
