@@ -33,14 +33,14 @@ await client.connect('mongodb://localhost:27017')
 //   tls: true,
 //   servers: [
 //     {
-//       host: 'cluster0-shard-00-02.cwxbw.mongodb.net',
+//       host: 'clusteAAAAAAAAAAAAAAAAAAAAAA.mongodb.net',
 //       port: 27017,
 //     }
 //   ],
 //   credential: {
-//     username: 'jylee4',
-//     password: 'hellomoto123',
-//     db: 'recordOne',
+//     username: 'AAAAAAAAAAAAAAAAAAAAAA',
+//     password: 'AAAAAAAAAAAAAAAAAAAAAA',
+//     db: 'AAAAAAAAAAAAAAAAAAAAAA',
 //     mechanism: "SCRAM-SHA-1"
 //   }
 // })
@@ -130,14 +130,14 @@ app.use(async (context, next) => {
 //     tls: true,
 //     servers: [
 //       {
-//         host: 'cluster0-shard-00-02.cwxbw.mongodb.net',
+//         host: 'clusteAAAAAAAAAAAAAAAAAAAAAA.mongodb.net',
 //         port: 8000,
 //       }
 //     ],
 //     credential: {
 //       username: "<user>",
 //       password: "<password>",
-//       db: 'recordOne',
+//       db: 'AAAAAAAAAAAAAAAAAAAAAA',
 //       mechanism: "SCRAM-SHA-1"
 //     }
 //   })
